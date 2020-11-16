@@ -2,12 +2,11 @@
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
-    border-radius: 10px;
+    border-radius: 1vw;
     user-select: none;
 }
 
 .container{
-    margin: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -22,11 +21,9 @@
 }
 
 .answers{
-    margin-top: 50px;
+    margin-top: 5vh;
     display: inline-flex;
-    font-size: 20px;
     width: 100%;
-    border-spacing: 10px;
     justify-content: space-between;
 }
 
