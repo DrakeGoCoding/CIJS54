@@ -8,18 +8,21 @@
 
 .container{
     margin: auto;
-    padding: 50px 50px;
-    width: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    position: absolute;
 }
 
 .propose{
-    padding: 50px 50px;
+    padding: 10% 10%;
     background-color: #4e4e4e;
-    font-size: 30px;
+    font-size: 2vw;
 }
 
 .answers{
-    margin-top: 30px;
+    margin-top: 50px;
     display: inline-flex;
     font-size: 20px;
     width: 100%;
@@ -32,8 +35,9 @@
 }
 
 .answers div{
-    padding: 50px 50px;
+    padding: 7% 5%;
     width: 20%;
+    font-size: 1.5vw;
 }
 
 .answers div:hover{
