@@ -3,6 +3,7 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
     border-radius: 10px;
+    user-select: none;
 }
 
 .container{
@@ -26,9 +27,17 @@
     justify-content: space-between;
 }
 
+.reverse{
+    flex-direction: row-reverse;
+}
+
 .answers div{
     padding: 50px 50px;
     width: 20%;
+}
+
+.answers div:hover{
+    cursor: pointer;
 }
 
 #yes{
