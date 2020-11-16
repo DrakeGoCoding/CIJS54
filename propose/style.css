@@ -1,0 +1,40 @@
+*{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    border-radius: 10px;
+}
+
+.container{
+    margin: auto;
+    padding: 50px 50px;
+    width: 70%;
+}
+
+.propose{
+    padding: 50px 50px;
+    background-color: #4e4e4e;
+    font-size: 30px;
+}
+
+.answers{
+    margin-top: 30px;
+    display: inline-flex;
+    font-size: 20px;
+    width: 100%;
+    border-spacing: 10px;
+    justify-content: space-between;
+}
+
+.answers div{
+    padding: 50px 50px;
+    width: 20%;
+}
+
+#yes{
+    background-color: #89ce89;
+}
+
+#no{
+    background-color: #e26262;
+}
