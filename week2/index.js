@@ -10,7 +10,7 @@ class Person {
     }
 
     introduce() {
-        console.log(`Hi! My name is ${this.name}. I'm ${this.age} years old and I'm from ${this.address}`);
+        console.log(`Hi! My name is ${this.name}. I'm ${this.age} years old and I'm from ${this.address}.`);
     }
 }
 
@@ -26,7 +26,7 @@ class Student extends Person {
 
     introduce() {
         super.introduce();
-        console.log(`And I'm a student of ${this.major} at ${this.university}`);
+        console.log(`And I'm a student of major ${this.major} at ${this.university}.`);
     }
 }
 

@@ -1,0 +1,15 @@
+*{
+    user-select: none;
+}
+
+.user-collection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.prev-btn, .next-btn{
+    font-size: 30px;
+}
