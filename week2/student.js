@@ -1,8 +1,4 @@
 class Student {
-    name;
-    age;
-    placeOfBirth;
-
     constructor(name, age, placeOfBirth) {
         this.name = name;
         this.age = age;
@@ -19,9 +15,6 @@ class Student {
 }
 
 class Course {
-    name;
-    studentList;
-
     constructor(name) {
         this.name = name;
         this.studentList = [];
