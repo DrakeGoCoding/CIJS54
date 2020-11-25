@@ -44,7 +44,7 @@ class Course {
     }
 }
 
-let studentList = randomStudentList(10);
+let studentList = randomStudentList(20);
 let studentA = new Student('Adam', 25, 'Manhattan');
 let studentB = new Student('Eve', 23, 'Melbourne');
 
@@ -56,8 +56,7 @@ CIJS54.addStudent(studentB);
 console.log(CIJS54);
 console.log('Find 15-year-old students:');
 console.log(CIJS54.findStudentByAge(15));
-console.log('Find 18-year-old students who live in Ha Noi: ')
-console.log(CIJS54.findStudentByAgeAndPOB(18, 'Ha Noi'));
+console.log('Count 18-year-old students who live in Ha Noi:', CIJS54.findStudentByAgeAndPOB(18, 'Ha Noi').length)
 
 // ------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------
