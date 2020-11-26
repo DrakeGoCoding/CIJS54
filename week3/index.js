@@ -3,7 +3,7 @@
 // greet();
 // endGreet();
 
-// To import all files
+// To import all functions
 import * as module from "./module.js"
 module.greet()
 module.endGreet()
