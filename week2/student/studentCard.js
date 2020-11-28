@@ -16,6 +16,8 @@ export default class StudentCard extends HTMLElement {
     }
 }
 
+customElements.define('student-card', StudentCard);
+
 const STYLE = `
     <style>
         .student{
