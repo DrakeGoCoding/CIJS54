@@ -21,3 +21,5 @@ export default class Student {
         `
     }
 }
+
+customElements.define('student-card', StudentCard);
