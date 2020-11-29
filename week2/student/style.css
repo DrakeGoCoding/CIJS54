@@ -1,0 +1,23 @@
+.course-info{
+    text-align: center;
+}
+
+.course-name{
+    font-size: 4rem;
+}
+
+.lecturer{
+    font-size: 1.5rem;
+}
+
+.students{
+    font-size: 1.5rem;
+    padding-left: 1rem; 
+    margin-bottom: 1rem;
+}
+
+.student-list{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 0.5fr));
+}

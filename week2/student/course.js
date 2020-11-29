@@ -26,17 +26,17 @@ export default class Course {
 
         // Course Info
         let courseInfoDiv = document.createElement('div');
-        courseInfoDiv.setAttribute('class', 'course-info');
+        courseInfoDiv.setAttribute('class', 'course-detail');
         courseInfoDiv.innerHTML = `
-            <div class="course-info" style="text-align: center">
-                <div style="font-size: 4rem">
+            <div class="course-info">
+                <div class="course-name">
                     <strong>Course:</strong> ${this.name}
                 </div>
-                <div style="font-size: 1.5rem">
+                <div class="lecturer">
                     <strong>Lecturer:</strong> ${this.lecturer}
                 </div>
             </div>
-            <div style="font-size: 1.5rem; padding-left: 1rem; margin-bottom: 2rem">
+            <div class="students">
                 <strong>Student List:</strong>
             </div>
         `;
@@ -46,12 +46,6 @@ export default class Course {
         let studentListDiv = document.createElement('div');
         studentListDiv.setAttribute('class', 'student-list');
         this.studentList.forEach(student => studentListDiv.innerHTML += student.toHTML());
-        studentListDiv.style.cssText = `
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 0.5fr));
-        `
-
         courseDiv.appendChild(courseInfoDiv);
         courseDiv.appendChild(studentListDiv);
 
