@@ -25,9 +25,7 @@ export default class Course {
         let courseDiv = document.querySelector('.course');
 
         // Course Info
-        let courseInfoDiv = document.createElement('div');
-        courseInfoDiv.setAttribute('class', 'course-detail');
-        courseInfoDiv.innerHTML = `
+        courseDiv.innerHTML = `
             <div class="course-info">
                 <div class="course-name">
                     <strong>Course:</strong> ${this.name}
@@ -35,19 +33,17 @@ export default class Course {
                 <div class="lecturer">
                     <strong>Lecturer:</strong> ${this.lecturer}
                 </div>
-            </div>
-            <div class="students">
-                <strong>Student List:</strong>
-            </div>
+                <div class="students-info">
+                    <strong style="padding-left: 1rem">Student List:</strong>
+                </div>
+            </div>      
         `;
-        courseInfoDiv.style.fontFamily = "Arial";
 
         // Student List
         let studentListDiv = document.createElement('div');
         studentListDiv.setAttribute('class', 'student-list');
         this.studentList.forEach(student => studentListDiv.innerHTML += student.toHTML());
-        courseDiv.appendChild(courseInfoDiv);
-        courseDiv.appendChild(studentListDiv);
+        document.querySelector('.students-info').appendChild(studentListDiv);
 
         return courseDiv;
     }
