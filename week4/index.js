@@ -2,7 +2,7 @@ import {getDataFromDoc, getDataFromDocs} from "./utils.js"
 
 async function getUserDocumentByID(id){
     // promise
-    // const res = firebase.firestore().collection('users').doc('0t5vihUYNxMs2jxrpCWM').get()
+    // const res = firebase.firestore().collection('users').doc(id).get()
     // .then(res => console.log(res));
 
     // async await
@@ -11,8 +11,8 @@ async function getUserDocumentByID(id){
     console.log(user);
 }
 
-getUserDocumentByID('0t5vihUYNxMs2jxrpCWM');
-getUserDocumentByID('qF6rCyEnwUWTGHwZtTfe');
+getUserDocumentByID('AmvgrU0hbogeyNVfWvTr');
+getUserDocumentByID('xQW9i1lMrJvrkXPrqsDB');
 
 async function getUserDocuments(){
     const res = await firebase.firestore().collection('users').get();

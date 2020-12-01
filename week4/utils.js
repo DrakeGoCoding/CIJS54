@@ -5,5 +5,5 @@ export function getDataFromDoc(doc){
 }
 
 export function getDataFromDocs(docs){
-    return docs.map(getDataFromDoc)
+    return docs.map(getDataFromDoc);
 }
