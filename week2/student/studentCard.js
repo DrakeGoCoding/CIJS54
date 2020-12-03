@@ -16,11 +16,11 @@ export default class StudentCard extends HTMLElement {
                 <p class="student-POB"><strong>Place of birth:</strong> ${this.pob}</p>
             </div>
         `;
-        console.log(`a student-card ${this.name, this.age, this.pob} is generated`);
+        console.log(`a student-card [${this.name}, ${this.age}, ${this.pob}] is generated`);
     }
 
     disconnectedCallback(){
-        console.log(`a student-card ${this.name, this.age, this.pob} is removed`);
+        console.log(`a student-card [${this.name}, ${this.age}, ${this.pob}] is removed`);
     }
 
     static get observedAttributes(){
