@@ -12,7 +12,7 @@ export function getDataFromDocs(docs){
 
 // FOR TESTING PURPOSE
 
-export default function randomStudentList(size) {
+export function randomStudentList(size) {
     let names = ['Linh', 'Nguyen', 'Trang', 'Tuan', 'Anh', 'Huy', 'Thu', 'Hoang', 'Van', 'Thang'];
     let ages = [15, 16, 17, 18, 19, 20];
     let placeOfBirths = ['Ha Noi', 'Hai Phong', 'Nam Dinh', 'Ha Tinh', 'Hai Duong', 'TP HCM', 'Da Nang'];
