@@ -20,6 +20,7 @@ export class RegisterScreen extends HTMLElement {
                     <input-wrapper id="password" type="password" placeholder="Password"></input-wrapper>
                     <input-wrapper id="confirm-password" type="password" placeholder="Confirm password"></input-wrapper>
                     <button type="submit">Register</button>
+                    <div class="alert-success hidden">Register succesfully!</div>
                 </form>
             </div>
         `
@@ -115,7 +116,8 @@ export class RegisterScreen extends HTMLElement {
                             'password': password
                         }
                         addUserDocument(newUser);
-                        console.log("Congrats!");
+                        this.shadowDom.querySelector('.alert-success').classList.add('active');
+                        setTimeout(() => this.shadowDom.querySelector('.alert-success').classList.remove('active'), 3000);
                     }
                 })
             }
@@ -187,6 +189,20 @@ const STYLE = `
         button:hover{
             background-color: #3d7ea6;
             cursor: pointer;
+        }
+
+        .alert-success{
+            margin-top: 1rem;
+            color: green;
+            width: 100%;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        .active{
+            display: block;
         }
     </style>
 `
