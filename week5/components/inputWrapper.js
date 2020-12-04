@@ -9,22 +9,36 @@ class InputWrapper extends HTMLElement{
         this.placeHolder = this.getAttribute('placeholder')
         this.alertMessage = this.getAttribute('alert-message') || '';
         this.shadowDom.innerHTML = `
+            ${STYLE}
             <div class="wrapper">
-                <input id="input-main" type="${this.type}" placeholder="${this.placeHolder}">
+                <input id="wrapper-input" type="${this.type}" placeholder="${this.placeHolder}">
                 <div class="alert">${this.alertMessage}</div>
             </div>
         `
     }
 
     get value(){
-        const value = this.shadowDom.querySelector('#input-main').value;
+        const value = this.shadowDom.querySelector('#wrapper-input').value;
         return value;
     }
 }
 
 const STYLE = `
     <style>
+        #wrapper-input{
+            width: 100%;
+            height: 3rem;
+            font-size: 1.5rem;
+            padding: 0 1rem;
+            border: 1px solid #dddfe2;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
+        #wrapper-input:focus{
+            border: 1px solid #3d7ea6;
+            outline: none;
+        }
     </style>
 `
 

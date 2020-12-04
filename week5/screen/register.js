@@ -10,11 +10,13 @@ export class RegisterScreen extends HTMLElement{
             <div class="register-container">
                 <form id="register-form">
                     <h1>CI Project</h1>
-                    <input-wrapper id="first-name" type="text" placeholder="First Name"></input-wrapper>
-                    <input-wrapper id="last-name" type="text" placeholder="Last Name"></input-wrapper>
+                    <div id="full-name">
+                        <input-wrapper id="first-name" type="text" placeholder="First name"></input-wrapper>
+                        <input-wrapper id="last-name" type="text" placeholder="Last name"></input-wrapper>
+                    </div>
                     <input-wrapper id="email" type="text" placeholder="Email"></input-wrapper>
                     <input-wrapper id="password" type="password" placeholder="Password"></input-wrapper>
-                    <input-wrapper id="confirm-password" type="password" placeholder="Confirm Password"></input-wrapper>
+                    <input-wrapper id="confirm-password" type="password" placeholder="Confirm password"></input-wrapper>
                     <button type="submit">Register</button>
                 </form>
             </div>
@@ -47,6 +49,7 @@ const STYLE = `
         }
 
         #register-form{
+            padding: 0 1.5rem;
             width: 30%;
             height: 100vh;
             background-color: white;
@@ -54,8 +57,47 @@ const STYLE = `
 
         h1{
             text-align: center;
-            color: #333;
-            font-family: Arial;
+            color: #1d9ced;
+            font-size: 3em;
+        }
+
+        #full-name{
+            display: flex;
+        }
+
+        #first-name{
+            width: 65%;
+        }
+
+        #last-name{
+            width: 45%;
+        }
+
+        input-wrapper{
+            display: block;
+            margin: 1rem 0;
+        }
+
+        button{
+            width: 100%;
+            font-size: 2rem;
+            margin-top: 1rem;
+            padding: 0.75rem 0;
+            color: white;
+            background-color: #1d9ced;
+            border-style: none;
+            border-radius: 6px;
+            user-select: none;
+        }
+
+        button:focus{
+            border: none;
+            outline: none;
+        }
+
+        button:hover{
+            background-color: #3d7ea6;
+            cursor: pointer;
         }
     </style>
 `
