@@ -4,3 +4,11 @@
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
 }
+
+.active{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}

@@ -1,10 +1,12 @@
-export class RegisterScreen extends HTMLElement{
-    constructor(){
+import { addUserDocument, getUserDocumentByEmail, isValidEmail, isValidName, isValidPassword, isValidRegistration } from "../utils.js"
+
+export class RegisterScreen extends HTMLElement {
+    constructor() {
         super();
-        this.shadowDom = this.attachShadow({mode: 'open'});
+        this.shadowDom = this.attachShadow({ mode: 'open' });
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.shadowDom.innerHTML = `
             ${STYLE}
             <div class="register-container">
@@ -14,7 +16,7 @@ export class RegisterScreen extends HTMLElement{
                         <input-wrapper id="first-name" type="text" placeholder="First name"></input-wrapper>
                         <input-wrapper id="last-name" type="text" placeholder="Last name"></input-wrapper>
                     </div>
-                    <input-wrapper id="email" type="text" placeholder="Email"></input-wrapper>
+                    <input-wrapper id="email" type="email" placeholder="Email"></input-wrapper>
                     <input-wrapper id="password" type="password" placeholder="Password"></input-wrapper>
                     <input-wrapper id="confirm-password" type="password" placeholder="Confirm password"></input-wrapper>
                     <button type="submit">Register</button>
@@ -23,13 +25,100 @@ export class RegisterScreen extends HTMLElement{
         `
 
         const registerForm = this.shadowDom.querySelector('#register-form');
+
+        const firstNameInput = registerForm.querySelector('#first-name');
+        firstNameInput.onkeyup = () => {
+            const firstName = firstNameInput.value.trim();
+            if (firstName.length === 0) {
+                firstNameInput.alertDiv.innerText = `First name?`;
+                firstNameInput.alertDiv.classList.add('active');
+            }
+            else if (!isValidName(firstName)) {
+                firstNameInput.alertDiv.innerText = "Only letters and white spaces allowed!";
+                firstNameInput.alertDiv.classList.add('active');
+            }
+            else firstNameInput.alertDiv.classList.remove('active');
+        }
+
+        const lastNameInput = registerForm.querySelector('#last-name');
+        lastNameInput.onkeyup = () => {
+            const lastName = lastNameInput.value.trim();
+            if (lastName.length === 0) {
+                lastNameInput.alertDiv.innerText = "Last name?";
+                lastNameInput.alertDiv.classList.add('active');
+            }
+            else if (!isValidName(lastName)) {
+                lastNameInput.alertDiv.innerText = "Only letters and white spaces allowed!";
+                lastNameInput.alertDiv.classList.add('active');
+            }
+            else {
+                lastNameInput.alertDiv.classList.remove('active');
+            }
+        }
+
+        const emailInput = registerForm.querySelector('#email');
+        emailInput.onkeyup = () => {
+            const email = emailInput.value;
+            if (email.length === 0) {
+                emailInput.alertDiv.innerText = "Please fill in your email!";
+                emailInput.alertDiv.classList.add('active');
+            }
+            else if (!isValidEmail(email)) {
+                emailInput.alertDiv.innerText = "Invalid email format!";
+                emailInput.alertDiv.classList.add('active');
+            }
+            else emailInput.alertDiv.classList.remove('active');
+        }
+
+        const passwordInput = registerForm.querySelector('#password');
+        passwordInput.onkeyup = () => {
+            const password = passwordInput.value;
+            if (!isValidPassword(password)) {
+                passwordInput.alertDiv.innerText = "Password must be 6-15 characters containing only digits and/or numbers!";
+                passwordInput.alertDiv.classList.add('active');
+            }
+            else passwordInput.alertDiv.classList.remove('active');
+        }
+
+        const confirmPasswordInput = registerForm.querySelector('#confirm-password');
+        confirmPasswordInput.onkeyup = () => {
+            const confirmPassword = confirmPasswordInput.value;
+            if (confirmPassword.length === 0){
+                confirmPasswordInput.alertDiv.innerText = "Please confirm your password!";
+                confirmPasswordInput.alertDiv.classList.add('active');
+            }
+            else if (confirmPassword !== passwordInput.value){
+                confirmPasswordInput.alertDiv.innerText = "Confirm password did not match!";
+                confirmPasswordInput.alertDiv.classList.add('active');
+            }
+            else confirmPasswordInput.alertDiv.classList.remove('active');
+        }
+
         registerForm.addEventListener('submit', e => {
             e.preventDefault();
-            console.log(registerForm.querySelector('#first-name').value);
-            console.log(registerForm.querySelector('#last-name').value);
-            console.log(registerForm.querySelector('#email').value);
-            console.log(registerForm.querySelector('#password').value);
-            console.log(registerForm.querySelector('#confirm-password').value);
+            const firstName = firstNameInput.value;
+            const lastName = lastNameInput.value;
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            if (isValidRegistration(firstName, lastName, email, password, confirmPassword)){
+                getUserDocumentByEmail(email).then(users => {
+                    if (users.length > 0){
+                        emailInput.alertDiv.innerText = "Email already exists!";
+                        emailInput.alertDiv.classList.add('active');
+                    }
+                    else {
+                        const newUser = {
+                            'firstName': firstName,
+                            'lastName': lastName,
+                            'email': email,
+                            'password': password
+                        }
+                        addUserDocument(newUser);
+                        console.log("Congrats!");
+                    }
+                })
+            }
         })
     }
 }
@@ -75,7 +164,7 @@ const STYLE = `
 
         input-wrapper{
             display: block;
-            margin: 1rem 0;
+            margin-bottom: 1rem;
         }
 
         button{
