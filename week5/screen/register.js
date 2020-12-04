@@ -113,7 +113,7 @@ export class RegisterScreen extends HTMLElement {
                             'firstName': firstName,
                             'lastName': lastName,
                             'email': email,
-                            'password': password
+                            'password': CryptoJS.MD5(password).toString(CryptoJS.enc.Hex)
                         }
                         addUserDocument(newUser);
                         this.shadowDom.querySelector('.alert-success').classList.add('active');
