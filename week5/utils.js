@@ -24,7 +24,7 @@ export function addUserDocument(data){
     firebase.firestore().collection('users').add(data);
 }
 
-export async function getUserDocumentByEmail(email){
+export async function getUserDocumentsByEmail(email){
     const res = await firebase.firestore().collection('users').where("email", "==", email).get();
     let users = getDataFromDocs(res.docs);
     return users;

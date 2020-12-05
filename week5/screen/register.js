@@ -1,4 +1,4 @@
-import { addUserDocument, getUserDocumentByEmail, isValidEmail, isValidName, isValidPassword, isValidRegistration } from "../utils.js"
+import { addUserDocument, getUserDocumentsByEmail, isValidEmail, isValidName, isValidPassword, isValidRegistration } from "../utils.js"
 
 export class RegisterScreen extends HTMLElement {
     constructor() {
@@ -103,7 +103,7 @@ export class RegisterScreen extends HTMLElement {
             const password = passwordInput.value;
             const confirmPassword = confirmPasswordInput.value;
             if (isValidRegistration(firstName, lastName, email, password, confirmPassword)){
-                getUserDocumentByEmail(email).then(users => {
+                getUserDocumentsByEmail(email).then(users => {
                     if (users.length > 0){
                         emailInput.alertDiv.innerText = "Email already exists!";
                         emailInput.alertDiv.classList.add('active');
@@ -116,6 +116,7 @@ export class RegisterScreen extends HTMLElement {
                             'password': CryptoJS.MD5(password).toString(CryptoJS.enc.Hex)
                         }
                         addUserDocument(newUser);
+                        emailInput.alertDiv.classList.remove('active');
                         this.shadowDom.querySelector('.alert-success').classList.add('active');
                         setTimeout(() => this.shadowDom.querySelector('.alert-success').classList.remove('active'), 3000);
                     }
