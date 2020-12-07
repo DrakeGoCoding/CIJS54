@@ -68,9 +68,9 @@ export class RegisterScreen extends HTMLElement {
 
         registerForm.addEventListener('submit', e => {
             e.preventDefault();
-            const firstName = firstNameInput.value;
-            const lastName = lastNameInput.value;
-            const email = emailInput.value;
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const email = emailInput.value.trim();
             const password = passwordInput.value;
             const confirmPassword = confirmPasswordInput.value;
             if (isValidRegistration(firstName, lastName, email, password, confirmPassword)) {
@@ -78,8 +78,7 @@ export class RegisterScreen extends HTMLElement {
                     if (users.length > 0) emailInput.setAttribute('alert-message', 'Email already exists');
                     else {
                         const newUser = {
-                            'firstName': firstName,
-                            'lastName': lastName,
+                            'fullName': firstName + ' ' + lastName,
                             'email': email,
                             'password': CryptoJS.MD5(password).toString(CryptoJS.enc.Hex)
                         }
