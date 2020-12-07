@@ -1,28 +1,33 @@
-class InputWrapper extends HTMLElement{
-    constructor(){
+class InputWrapper extends HTMLElement {
+    constructor() {
         super();
-        this.shadowDom = this.attachShadow({mode: 'open'});
+        this.shadowDom = this.attachShadow({ mode: 'open' });
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.type = this.getAttribute('type');
-        this.placeHolder = this.getAttribute('placeholder')
+        this.placeHolder = this.getAttribute('placeholder');
+        this.alertMessage = this.getAttribute('alert-message') || '';
         this.shadowDom.innerHTML = `
             ${STYLE}
             <div class="wrapper">
                 <input id="wrapper-input" type="${this.type}" placeholder="${this.placeHolder}">
-                <div class="alert hidden"></div>
+                <div class="alert">${this.alertMessage}</div>
             </div>
         `
     }
 
-    get value(){
-        const value = this.shadowDom.querySelector('#wrapper-input').value;
-        return value;
+    static get observedAttributes() {
+        return ['type', 'placeholder', 'alert-message'];
     }
 
-    get alertDiv(){
-        return this.shadowDom.querySelector('.alert');
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (attribute === 'alert-message') this.shadowDom.querySelector('.alert').innerHTML = newValue;
+    }
+
+    get value() {
+        const value = this.shadowDom.querySelector('#wrapper-input').value;
+        return value;
     }
 }
 
@@ -46,14 +51,6 @@ const STYLE = `
         .alert{
             margin-top: 0.5rem;
             color: red;
-        }
-
-        .hidden{
-            display: none;
-        }
-
-        .active{
-            display: block;
         }
     </style>
 `

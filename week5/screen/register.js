@@ -30,69 +30,40 @@ export class RegisterScreen extends HTMLElement {
         const firstNameInput = registerForm.querySelector('#first-name');
         firstNameInput.onkeyup = () => {
             const firstName = firstNameInput.value.trim();
-            if (firstName.length === 0) {
-                firstNameInput.alertDiv.innerText = `First name?`;
-                firstNameInput.alertDiv.classList.add('active');
-            }
-            else if (!isValidName(firstName)) {
-                firstNameInput.alertDiv.innerText = "Only letters and white spaces allowed!";
-                firstNameInput.alertDiv.classList.add('active');
-            }
-            else firstNameInput.alertDiv.classList.remove('active');
+            if (firstName.length === 0) firstNameInput.setAttribute('alert-message', 'First name?');
+            else if (!isValidName(firstName)) firstNameInput.setAttribute('alert-message', 'Only letters and white spaces allowed!');
+            else firstNameInput.removeAttribute('alert-message');
         }
 
         const lastNameInput = registerForm.querySelector('#last-name');
         lastNameInput.onkeyup = () => {
             const lastName = lastNameInput.value.trim();
-            if (lastName.length === 0) {
-                lastNameInput.alertDiv.innerText = "Last name?";
-                lastNameInput.alertDiv.classList.add('active');
-            }
-            else if (!isValidName(lastName)) {
-                lastNameInput.alertDiv.innerText = "Only letters and white spaces allowed!";
-                lastNameInput.alertDiv.classList.add('active');
-            }
-            else {
-                lastNameInput.alertDiv.classList.remove('active');
-            }
+            if (lastName.length === 0) lastNameInput.setAttribute('alert-message', 'Last name?');
+            else if (!isValidName(lastName)) lastNameInput.setAttribute('alert-message', 'Only letters and white spaces allowed!');
+            else lastNameInput.removeAttribute('alert-message');
         }
 
         const emailInput = registerForm.querySelector('#email');
         emailInput.onkeyup = () => {
             const email = emailInput.value;
-            if (email.length === 0) {
-                emailInput.alertDiv.innerText = "Please fill in your email!";
-                emailInput.alertDiv.classList.add('active');
-            }
-            else if (!isValidEmail(email)) {
-                emailInput.alertDiv.innerText = "Invalid email format!";
-                emailInput.alertDiv.classList.add('active');
-            }
-            else emailInput.alertDiv.classList.remove('active');
+            if (email.length === 0) emailInput.setAttribute('alert-message', 'Please fill in your email!');
+            else if (!isValidEmail(email)) emailInput.setAttribute('alert-message', 'Invalid email format!');
+            else emailInput.removeAttribute('alert-message');
         }
 
         const passwordInput = registerForm.querySelector('#password');
         passwordInput.onkeyup = () => {
             const password = passwordInput.value;
-            if (!isValidPassword(password)) {
-                passwordInput.alertDiv.innerText = "Password must be 6-15 characters containing only digits and/or numbers!";
-                passwordInput.alertDiv.classList.add('active');
-            }
-            else passwordInput.alertDiv.classList.remove('active');
+            if (!isValidPassword(password)) passwordInput.setAttribute('alert-message', 'Password must be 6-15 characters containing only digits and/or numbers!');
+            else passwordInput.removeAttribute('alert-message');
         }
 
         const confirmPasswordInput = registerForm.querySelector('#confirm-password');
         confirmPasswordInput.onkeyup = () => {
             const confirmPassword = confirmPasswordInput.value;
-            if (confirmPassword.length === 0){
-                confirmPasswordInput.alertDiv.innerText = "Please confirm your password!";
-                confirmPasswordInput.alertDiv.classList.add('active');
-            }
-            else if (confirmPassword !== passwordInput.value){
-                confirmPasswordInput.alertDiv.innerText = "Confirm password did not match!";
-                confirmPasswordInput.alertDiv.classList.add('active');
-            }
-            else confirmPasswordInput.alertDiv.classList.remove('active');
+            if (confirmPassword.length === 0) confirmPasswordInput.setAttribute('alert-message', 'Please confirm your password!');
+            else if (confirmPassword !== passwordInput.value) confirmPasswordInput.setAttribute('alert-message', 'Confirm password did not match');
+            else confirmPasswordInput.removeAttribute('alert-message');
         }
 
         registerForm.addEventListener('submit', e => {
@@ -102,12 +73,9 @@ export class RegisterScreen extends HTMLElement {
             const email = emailInput.value;
             const password = passwordInput.value;
             const confirmPassword = confirmPasswordInput.value;
-            if (isValidRegistration(firstName, lastName, email, password, confirmPassword)){
+            if (isValidRegistration(firstName, lastName, email, password, confirmPassword)) {
                 getUserDocumentsByEmail(email).then(users => {
-                    if (users.length > 0){
-                        emailInput.alertDiv.innerText = "Email already exists!";
-                        emailInput.alertDiv.classList.add('active');
-                    }
+                    if (users.length > 0) emailInput.setAttribute('alert-message', 'Email already exists');
                     else {
                         const newUser = {
                             'firstName': firstName,
@@ -116,7 +84,7 @@ export class RegisterScreen extends HTMLElement {
                             'password': CryptoJS.MD5(password).toString(CryptoJS.enc.Hex)
                         }
                         addUserDocument(newUser);
-                        emailInput.alertDiv.classList.remove('active');
+                        emailInput.removeAttribute('alert-message');
                         this.shadowDom.querySelector('.alert-success').classList.add('active');
                         setTimeout(() => this.shadowDom.querySelector('.alert-success').classList.remove('active'), 3000);
                     }
