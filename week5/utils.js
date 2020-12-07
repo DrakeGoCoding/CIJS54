@@ -39,7 +39,7 @@ export function isValidRegistration(firstName, lastName, email, password, confir
 
 export function isValidName(name) {
     let regex = /^[a-zA-Z-' ]*$/;
-    return regex.test(name);
+    return regex.test(name) && name.length > 0;
 }
 
 export function isValidEmail(email) {
