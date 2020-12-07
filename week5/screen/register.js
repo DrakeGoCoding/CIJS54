@@ -1,3 +1,4 @@
+import { redirect } from "../index.js";
 import { addUserDocument, getUserDocumentsByEmail, isValidEmail, isValidName, isValidPassword, isValidRegistration } from "../utils.js"
 
 export class RegisterScreen extends HTMLElement {
@@ -20,10 +21,13 @@ export class RegisterScreen extends HTMLElement {
                     <input-wrapper id="password" type="password" placeholder="Password"></input-wrapper>
                     <input-wrapper id="confirm-password" type="password" placeholder="Confirm password"></input-wrapper>
                     <button type="submit">Register</button>
-                    <div class="alert-success hidden">Register succesfully!</div>
+                    <div id="redirect-login"><a>Already have an account?</a></div>
                 </form>
             </div>
         `
+
+        const redirectLogin = this.shadowDom.querySelector('#redirect-login');
+        redirectLogin.onclick = () => redirect('login');
 
         const registerForm = this.shadowDom.querySelector('#register-form');
 
@@ -31,7 +35,7 @@ export class RegisterScreen extends HTMLElement {
         firstNameInput.onkeyup = () => {
             const firstName = firstNameInput.value.trim();
             if (firstName.length === 0) firstNameInput.setAttribute('alert-message', 'First name?');
-            else if (!isValidName(firstName)) firstNameInput.setAttribute('alert-message', 'Only letters and white spaces allowed!');
+            else if (!isValidName(firstName)) firstNameInput.setAttribute('alert-message', 'Only letters and white spaces allowed');
             else firstNameInput.removeAttribute('alert-message');
         }
 
@@ -39,29 +43,29 @@ export class RegisterScreen extends HTMLElement {
         lastNameInput.onkeyup = () => {
             const lastName = lastNameInput.value.trim();
             if (lastName.length === 0) lastNameInput.setAttribute('alert-message', 'Last name?');
-            else if (!isValidName(lastName)) lastNameInput.setAttribute('alert-message', 'Only letters and white spaces allowed!');
+            else if (!isValidName(lastName)) lastNameInput.setAttribute('alert-message', 'Only letters and white spaces allowed');
             else lastNameInput.removeAttribute('alert-message');
         }
 
         const emailInput = registerForm.querySelector('#email');
         emailInput.onkeyup = () => {
             const email = emailInput.value;
-            if (email.length === 0) emailInput.setAttribute('alert-message', 'Please fill in your email!');
-            else if (!isValidEmail(email)) emailInput.setAttribute('alert-message', 'Invalid email format!');
+            if (email.length === 0) emailInput.setAttribute('alert-message', 'Please fill in your email');
+            else if (!isValidEmail(email)) emailInput.setAttribute('alert-message', 'Invalid email format');
             else emailInput.removeAttribute('alert-message');
         }
 
         const passwordInput = registerForm.querySelector('#password');
         passwordInput.onkeyup = () => {
             const password = passwordInput.value;
-            if (!isValidPassword(password)) passwordInput.setAttribute('alert-message', 'Password must be 6-15 characters containing only digits and/or numbers!');
+            if (!isValidPassword(password)) passwordInput.setAttribute('alert-message', 'Password must be 6-15 characters containing only digits and/or numbers');
             else passwordInput.removeAttribute('alert-message');
         }
 
         const confirmPasswordInput = registerForm.querySelector('#confirm-password');
         confirmPasswordInput.onkeyup = () => {
             const confirmPassword = confirmPasswordInput.value;
-            if (confirmPassword.length === 0) confirmPasswordInput.setAttribute('alert-message', 'Please confirm your password!');
+            if (confirmPassword.length === 0) confirmPasswordInput.setAttribute('alert-message', 'Please confirm your password');
             else if (confirmPassword !== passwordInput.value) confirmPasswordInput.setAttribute('alert-message', 'Confirm password did not match');
             else confirmPasswordInput.removeAttribute('alert-message');
         }
@@ -84,8 +88,7 @@ export class RegisterScreen extends HTMLElement {
                         }
                         addUserDocument(newUser);
                         emailInput.removeAttribute('alert-message');
-                        this.shadowDom.querySelector('.alert-success').classList.add('active');
-                        setTimeout(() => this.shadowDom.querySelector('.alert-success').classList.remove('active'), 3000);
+                        alert('Register successfully');
                     }
                 })
             }
@@ -159,18 +162,14 @@ const STYLE = `
             cursor: pointer;
         }
 
-        .alert-success{
+        #redirect-login{
+            color: #1d9ced;
             margin-top: 1rem;
-            color: green;
-            width: 100%;
         }
 
-        .hidden{
-            display: none;
-        }
-
-        .active{
-            display: block;
+        #redirect-login:hover{
+            color: #3d7ea6;
+            cursor: pointer;
         }
     </style>
 `
