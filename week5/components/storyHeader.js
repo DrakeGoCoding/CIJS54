@@ -1,4 +1,4 @@
-import {redirect} from '../index.js'
+import { redirect } from '../index.js'
 
 export class StoryHeader extends HTMLElement {
     constructor() {
@@ -9,15 +9,16 @@ export class StoryHeader extends HTMLElement {
     connectedCallback() {
         this.shadowDom.innerHTML = `
             ${STYLE}
-            <div class="container">
+            <div class="story-header-container">
                 <div class="logo">
                     <img src="./imgs/koala.png" alt="Web Icon">
                     <div class="branch">Koala's story</div>
                 </div>
 
-                <div class="user-btns">
+                <div class="user-feature">
                     <div class="avatar">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <div class="user-name">Long</div>
                     </div>
                     <div class="sign-out-btn">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -45,7 +46,7 @@ const STYLE = `
             font-family: 'Ubuntu', sans-serif;
         }
 
-        .container{
+        .story-header-container{
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -71,14 +72,22 @@ const STYLE = `
             font-weight: 600;           
         }
     
-        .user-btns{
+        .user-feature{
             display: flex;
             font-size: 1.8rem;
             color: white;
         }
 
-        .user-btns .avatar{
+        .user-feature .avatar{
+            display: flex;
+            align-items: center;
             margin-right: 1rem;
+        }
+
+        .user-feature .avatar .user-name{
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-left: 0.5rem; 
         }
 
         .fa{

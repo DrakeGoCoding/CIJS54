@@ -4,11 +4,14 @@ export class StoryScreen extends HTMLElement {
         this.shadowDom = this.attachShadow({ mode: 'open' });
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.shadowDom.innerHTML = `
             ${STYLE}
-            <story-header></story-header>
-            <post-wrapper></post-wrapper>
+            <div class="story-screen-container">
+                <story-header></story-header>
+                <post-creator></post-creator>
+                <div class="user-posts"></div>
+            </div>
         `
     }
 }
@@ -17,6 +20,6 @@ customElements.define('story-screen', StoryScreen);
 
 const STYLE = `
     <style>
-
+        
     </style>
 `
