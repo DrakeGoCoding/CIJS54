@@ -8,24 +8,31 @@ export function getDataFromDocs(docs) {
     return docs.map(getDataFromDoc);
 }
 
-export async function getUserDocumentByID(id){
+export async function getUserDocumentByID(id) {
     const res = await firebase.firestore().collection('users').doc(id).get();
     const user = getDataFromDoc(res);
     return user;
 }
 
-export async function getUserDocuments(){
+export async function getUserDocuments() {
     const res = await firebase.firestore().collection('users').get();
     let users = getDataFromDocs(res.docs);
     return users;
 }
 
-export function addUserDocument(data){
+/**
+ * 
+ * @param {Object} data 
+ */
+export function addUserDocument(data) {
     firebase.firestore().collection('users').add(data);
 }
 
-export async function getUserDocumentsByEmail(email){
-    const res = await firebase.firestore().collection('users').where("email", "==", email).get();
+export async function getUserDocumentsByEmail(email) {
+    const res = await firebase.firestore()
+        .collection('users')
+        .where("email", "==", email)
+        .get();
     let users = getDataFromDocs(res.docs);
     return users;
 }
@@ -33,7 +40,7 @@ export async function getUserDocumentsByEmail(email){
 export function isValidRegistration(firstName, lastName, email, password, confirmPassword) {
     return isValidName(firstName + lastName) &&
         isValidEmail(email) &&
-        isValidPassword(password) && 
+        isValidPassword(password) &&
         password === confirmPassword;
 }
 
@@ -50,4 +57,21 @@ export function isValidEmail(email) {
 export function isValidPassword(password) {
     let regex = /^[a-zA-Z0-9]{6,15}$/;
     return regex.test(password);
+}
+
+/**
+ * 
+ * @param {String} key 
+ * @param {Object} value 
+ */
+export function writeToLocalStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+/**
+ * 
+ * @param {String} key 
+ */
+export function getItemFromLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
 }

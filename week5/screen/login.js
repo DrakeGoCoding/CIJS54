@@ -1,5 +1,5 @@
 import { redirect } from "../index.js";
-import { getUserDocumentsByEmail } from "../utils.js";
+import { getUserDocumentsByEmail, writeToLocalStorage } from "../utils.js";
 
 export class LoginScreen extends HTMLElement {
     constructor() {
@@ -28,19 +28,20 @@ export class LoginScreen extends HTMLElement {
         const emailInput = loginForm.querySelector('#email');
         const passwordInput = loginForm.querySelector('#password');
 
-        loginForm.addEventListener('submit', async(e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = emailInput.value;
             const password = passwordInput.value;
             const users = await getUserDocumentsByEmail(email);
 
-            if (users.empty) emailInput.setAttribute('alert-message', 'Email does not exist');
+            if (users.length === 0) emailInput.setAttribute('alert-message', 'Email not found');
             else {
                 const user = users[0];
                 emailInput.removeAttribute('alert-message');
                 if (CryptoJS.MD5(password).toString(CryptoJS.enc.Hex) === user.password) {
                     passwordInput.removeAttribute('alert-message');
-                    alert('Login successfully!');
+                    writeToLocalStorage('currentUser', user);
+                    redirect('story');
                 }
                 else passwordInput.setAttribute('alert-message', 'Incorrect password');
             }

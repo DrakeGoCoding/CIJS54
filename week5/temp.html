@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .container{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1%;
+            height: 60px;
+            background-color: #6ccfff;
+        }
+
+        .logo{
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .logo img{
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo .branch{
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;           
+        }
+        
+        .user-btns{
+            display: flex;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .user-btns .avatar{
+            margin-right: 1rem;
+        }
+
+        .fa{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .fa:hover{
+            color: black;
+            transition: all ease-in-out 0.5s;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="./imgs/koala.png" alt="Web Icon">
+            <div class="branch">Koala's story</div>
+        </div>
+
+        <div class="user-btns">
+            <div class="avatar">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </div>
+            <div class="log-out-btn">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+
+    <form id="post">
+        <textarea name="post-content" rows="4"></textarea>
+        <button>Post</button>
+    </form>
+</body>
+</html>
