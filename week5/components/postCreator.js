@@ -26,7 +26,7 @@ export class PostCreator extends HTMLElement {
             if (postContent.length > 0)
                 this.shadowDom.querySelector('#post-btn').removeAttribute('disabled');
             else
-                this.shadowDom.querySelector('post-btn').setAttribute('disabled', true);
+                this.shadowDom.querySelector('#post-btn').setAttribute('disabled', true);
         }
 
         postForm.addEventListener('submit', e => {
