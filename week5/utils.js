@@ -105,6 +105,6 @@ export function formatDate(date) {
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
 }
 
-function compareCreatedDate(a, b) {
-    return a.createdDate - b.createdDate;
+export function compareCreatedDate(a, b) {
+    return new Date(b.createdDate) - new Date(a.createdDate);
 }

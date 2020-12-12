@@ -1,4 +1,4 @@
-import { getItemFromLocalStorage, getPostDocumentsByUserID } from "../utils.js";
+import { compareCreatedDate, getItemFromLocalStorage, getPostDocumentsByUserID } from "../utils.js";
 import '../components/postWrapper.js'
 
 export class StoryScreen extends HTMLElement {
@@ -11,6 +11,7 @@ export class StoryScreen extends HTMLElement {
         const currentUser = getItemFromLocalStorage('currentUser');
         getPostDocumentsByUserID(currentUser.id).then(posts => {
             let postDivs = '';
+            posts.sort(compareCreatedDate);
             posts.forEach(post => {
                 postDivs += `
                     <post-wrapper 
