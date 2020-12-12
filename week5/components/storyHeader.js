@@ -1,4 +1,5 @@
 import { redirect } from '../index.js'
+import { getItemFromLocalStorage } from '../utils.js';
 
 export class StoryHeader extends HTMLElement {
     constructor() {
@@ -18,7 +19,7 @@ export class StoryHeader extends HTMLElement {
                 <div class="user-feature">
                     <div class="avatar">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        <div class="user-name">Long</div>
+                        <div class="user-name">${getItemFromLocalStorage('currentUser').fullName}</div>
                     </div>
                     <div class="sign-out-btn">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -53,6 +54,8 @@ const STYLE = `
             padding: 0 1%;
             height: 60px;
             background-color: #6ccfff;
+            position: sticky;
+            top: 0;
         }
 
         .logo{

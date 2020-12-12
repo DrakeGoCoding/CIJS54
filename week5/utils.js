@@ -8,6 +8,10 @@ export function getDataFromDocs(docs) {
     return docs.map(getDataFromDoc);
 }
 
+// ------------------------------------------------------
+// ------------------------------------------------------
+// ------------------------------------------------------
+
 export async function getUserDocumentByID(id) {
     const res = await firebase.firestore().collection('users').doc(id).get();
     const user = getDataFromDoc(res);
@@ -20,10 +24,6 @@ export async function getUserDocuments() {
     return users;
 }
 
-/**
- * 
- * @param {Object} data 
- */
 export function addUserDocument(data) {
     firebase.firestore().collection('users').add(data);
 }
@@ -33,9 +33,30 @@ export async function getUserDocumentsByEmail(email) {
         .collection('users')
         .where("email", "==", email)
         .get();
-    let users = getDataFromDocs(res.docs);
+    const users = getDataFromDocs(res.docs);
     return users;
 }
+
+// ------------------------------------------------------
+// ------------------------------------------------------
+// ------------------------------------------------------
+
+export async function getPostDocumentsByUserID(userID) {
+    const res = await firebase.firestore()
+        .collection('posts')
+        .where('userID', '==', userID)
+        .get();
+    const posts = getDataFromDocs(res.docs);
+    return posts;
+}
+
+export function addPostDocument(post) {
+    firebase.firestore().collection('posts').add(post);
+}
+
+// ------------------------------------------------------
+// ------------------------------------------------------
+// ------------------------------------------------------
 
 export function isValidRegistration(firstName, lastName, email, password, confirmPassword) {
     return isValidName(firstName + lastName) &&
@@ -70,8 +91,20 @@ export function writeToLocalStorage(key, value) {
 
 /**
  * 
- * @param {String} key 
+ * @param {String} key
  */
 export function getItemFromLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key));
+}
+
+/**
+ * 
+ * @param {Date} date 
+ */
+export function formatDate(date) {
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+}
+
+function compareCreatedDate(a, b) {
+    return a.createdDate - b.createdDate;
 }

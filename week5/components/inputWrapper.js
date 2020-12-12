@@ -22,12 +22,12 @@ class InputWrapper extends HTMLElement {
     }
 
     attributeChangedCallback(attribute, oldValue, newValue) {
-        if (attribute === 'alert-message') this.shadowDom.querySelector('.alert').innerHTML = newValue;
+        if (attribute === 'alert-message') 
+            this.shadowDom.querySelector('.alert').innerHTML = newValue;
     }
 
     get value() {
-        const value = this.shadowDom.querySelector('#wrapper-input').value;
-        return value;
+        return this.shadowDom.querySelector('#wrapper-input').value;
     }
 }
 
