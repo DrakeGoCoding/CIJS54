@@ -50,6 +50,15 @@ export async function getPostDocumentsByUserID(userID) {
     return posts;
 }
 
+export async function getPublicPostDocuments(){
+    const res = await firebase.firestore()
+        .collection('posts')
+        .where('isPublic', '==', true)
+        .get();
+    const posts = getDataFromDocs(res.docs);
+    return posts;
+}
+
 export function addPostDocument(post) {
     firebase.firestore().collection('posts').add(post);
 }

@@ -1,4 +1,3 @@
-import { redirect } from "../index.js";
 import { addPostDocument, getItemFromLocalStorage } from "../utils.js";
 
 export class PostCreator extends HTMLElement {
@@ -12,12 +11,16 @@ export class PostCreator extends HTMLElement {
             ${STYLE}
             <div class="post-creator-container">
                 <form id="post-form">
-                    <textarea id="post-content" name="post-content" cols="50" rows="5" placeholder="What's on your mind?"></textarea> <br>
+                    <textarea id="post-content" name="post-content" 
+                        cols="50" rows="5" 
+                        placeholder="What's on your mind?" 
+                        spellcheck="false">
+                    </textarea> <br>
                     <button id="post-btn" type="submit" disabled>Post</button>
                 </form>
             </div>
         `
-
+        const currentUser = getItemFromLocalStorage('currentUser');
         const postForm = this.shadowDom.querySelector('#post-form');
         const postContentInput = this.shadowDom.querySelector('#post-content');
 
@@ -31,14 +34,15 @@ export class PostCreator extends HTMLElement {
 
         postForm.addEventListener('submit', e => {
             e.preventDefault();
-            const currentUser = getItemFromLocalStorage('currentUser');
             const newPost = {
                 'userID': currentUser.id,
                 'content': postContentInput.value,
-                'createdDate': new Date().toISOString()
+                'comments': [],
+                'createdDate': new Date().toISOString(),
+                'isPublic': true
             }
             addPostDocument(newPost);
-            redirect('story');
+            postContentInput.value = '';
         })
     }
 }

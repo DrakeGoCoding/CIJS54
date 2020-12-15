@@ -49,11 +49,13 @@ const STYLE = `
         .user-post-header i{
             font-size: 2rem; 
             margin-right: 0.5rem;
+            color: #6ccfff
         }
 
         .user-post-header .user-post-info .user-name{
             font-weight: 600;
             margin-bottom: 5px;
+            color: #6ccfff
         }
 
         .user-post-header i:hover{
@@ -62,11 +64,12 @@ const STYLE = `
 
         .user-post-header .user-post-info .user-name:hover{
             cursor: pointer;
-
         }
 
         .user-post-header .user-post-info .user-post-time{
             font-size: 0.8rem;
+            font-weight: 600;
+            color: gray;
         }
 
         .user-post-detail .user-post-content{

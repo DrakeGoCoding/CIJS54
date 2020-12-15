@@ -93,6 +93,10 @@ const STYLE = `
             margin-left: 0.5rem; 
         }
 
+        .logo img:hover, .user-feature .avatar .user-name:hover{
+            cursor: pointer;
+        }
+
         .fa{
             background-color: transparent;
             border: none;
