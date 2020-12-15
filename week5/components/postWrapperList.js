@@ -29,14 +29,14 @@ export class PostWrapperList extends HTMLElement {
         `
     }
 
-    observePostCollectionChange(){
+    observePostCollectionChange() {
         let firstRun = true;
         firebase.firestore()
-        .collection('posts')
-        .onSnapshot(snapShot => {
-            if (firstRun) firstRun = false;
-            else console.log('Snapshot', snapShot.docChanges());
-        });
+            .collection('posts')
+            .onSnapshot(snapShot => {
+                if (firstRun) firstRun = false;
+                else console.log('Snapshot', snapShot.docChanges());
+            });
     }
 }
 

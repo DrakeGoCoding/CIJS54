@@ -50,7 +50,7 @@ export async function getPostDocumentsByUserID(userID) {
     return posts;
 }
 
-export async function getPublicPostDocuments(){
+export async function getPublicPostDocuments() {
     const res = await firebase.firestore()
         .collection('posts')
         .where('isPublic', '==', true)
