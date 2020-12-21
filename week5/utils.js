@@ -25,7 +25,8 @@ export async function getUserDocuments() {
 }
 
 export function addUserDocument(data) {
-    firebase.firestore().collection('users').add(data);
+    const res = firebase.firestore().collection('users').add(data);
+    return res;
 }
 
 export async function getUserDocumentsByEmail(email) {
@@ -59,8 +60,8 @@ export async function getPublicPostDocuments() {
     return posts;
 }
 
-export function addPostDocument(post) {
-    firebase.firestore().collection('posts').add(post);
+export async function addPostDocument(post) {
+    return firebase.firestore().collection('posts').add(post);
 }
 
 // ------------------------------------------------------
@@ -117,3 +118,14 @@ export function formatDate(date) {
 export function compareCreatedDate(a, b) {
     return new Date(b.createdDate) - new Date(a.createdDate);
 }
+
+export async function uploadFileToStorage(file) {
+    const fileName = file.name;
+    const filePath = `file/${fileName}`;
+    const ref = firebase.storage().ref().child(filePath);
+    await ref.put(file);
+    return getFileUrl(ref);
+  }
+  function getFileUrl(fileRef) {
+    return `https://firebasestorage.googleapis.com/v0/b/${fileRef.bucket}/o/${encodeURIComponent(fileRef.fullPath)}?alt=media`
+  }

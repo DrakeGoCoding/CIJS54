@@ -15,11 +15,13 @@ export class PostWrapperList extends HTMLElement {
 
         posts.sort(compareCreatedDate);
         posts.forEach(post => {
+            const imgSrc = (post.files && post.files.length > 0) ? post.files[0] : ''
             postListHTML += `
                 <post-wrapper 
                     user-name="${currentUser.fullName}"
                     created-time="${post.createdDate}"
                     content="${post.content}">
+                    img="${imgSrc}"
                 </post-wrapper>
             `
         })
@@ -53,6 +55,7 @@ export class PostWrapperList extends HTMLElement {
         newPostWrapper.setAttribute('user-name', currentUser.fullName);
         newPostWrapper.setAttribute('created-time', data.createdDate);
         newPostWrapper.setAttribute('content', data.content);
+        // newPostWrapper.setAttribute('img', data.files[0]);
         
         const postList = this.shadowDom.querySelector('.post-list');
         postList.insertBefore(newPostWrapper, postList.firstChild);

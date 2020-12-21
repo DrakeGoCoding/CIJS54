@@ -10,6 +10,7 @@ export class PostWrapper extends HTMLElement {
         this.userName = this.getAttribute('user-name');
         this.createdTime = this.getAttribute('created-time');
         this.content = this.getAttribute('content');
+        this.img = this.getAttribute('img');
         this.shadowDom.innerHTML = `
             ${STYLE}
             <div class="user-post">
@@ -22,7 +23,9 @@ export class PostWrapper extends HTMLElement {
                 </div>
                 <div class="user-post-detail">
                     <div class="user-post-content">${this.content}</div>
-                    <div class="user-post-figures"></div>
+                    <div class="user-post-figures">
+                        <img src="${this.img}" alt="img">
+                    </div>
                 </div>         
             </div>
         `

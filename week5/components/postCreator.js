@@ -1,4 +1,4 @@
-import { addPostDocument, getItemFromLocalStorage } from "../utils.js";
+import { addPostDocument, getItemFromLocalStorage, uploadFileToStorage } from "../utils.js";
 
 export class PostCreator extends HTMLElement {
     constructor() {
@@ -11,11 +11,11 @@ export class PostCreator extends HTMLElement {
             ${STYLE}
             <div class="post-creator-container">
                 <form id="post-form">
-                    <textarea id="post-content" name="post-content" 
+                    <textarea id="post-content" name="content" 
                         cols="50" rows="5" 
                         placeholder="What's on your mind?" 
-                        spellcheck="false">
-                    </textarea> <br>
+                        spellcheck="false"></textarea> <br>
+                    <input type="file" id="post-file" name="file">
                     <button id="post-btn" type="submit" disabled>Post</button>
                 </form>
             </div>
@@ -23,6 +23,7 @@ export class PostCreator extends HTMLElement {
         const currentUser = getItemFromLocalStorage('currentUser');
         const postForm = this.shadowDom.querySelector('#post-form');
         const postContentInput = this.shadowDom.querySelector('#post-content');
+        const postFileInput = this.shadowDom.querySelector("#post-file");
 
         postContentInput.onkeyup = () => {
             const postContent = postContentInput.value.trim();
@@ -32,8 +33,9 @@ export class PostCreator extends HTMLElement {
                 this.shadowDom.querySelector('#post-btn').setAttribute('disabled', true);
         }
 
-        postForm.addEventListener('submit', e => {
+        postForm.addEventListener('submit', async(e) => {
             e.preventDefault();
+            const postFiles = postFileInput.files;
             const newPost = {
                 'userID': currentUser.id,
                 'content': postContentInput.value,
@@ -41,9 +43,20 @@ export class PostCreator extends HTMLElement {
                 'createdDate': new Date().toISOString(),
                 'isPublic': true
             }
-            addPostDocument(newPost);
+            const res = await addPostDocument(newPost);
+            if (postFiles.length > 0){
+                const url = await uploadFileToStorage(postFiles[0]);
+                this.updatePostFileList(url, res.id);
+            }
             postContentInput.value = '';
         })
+    }
+
+    updatePostFileList(url, id) {
+        const dataUpdate = {
+            files: firebase.firestore.FieldValue.arrayUnion(url)
+        }
+        firebase.firestore().collection('posts').doc(id).update(dataUpdate);
     }
 }
 
